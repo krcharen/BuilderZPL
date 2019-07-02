@@ -1,18 +1,25 @@
 {
-    "name": "graywolf/builderzpl",
-    "description": "通过PHP生成ZPL",
-    "type": "0",
-    "require": {
-        "php": "^7.0"
-    },
-    "require-dev": {
-        "php": "^7.0"
-    },
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Gray Wolf",
-            "email": "krcharen@gmail.com"
-        }
-    ]
+  "name": "graywolf/builderzpl",
+  "description": "通过PHP生成ZPL",
+  "type": "lib",
+  "require": {
+    "php": "^7.0",
+    "monolog/monolog": "1.0.*",
+    "guzzlehttp/guzzle": "^6.3"
+  },
+  "require-dev": {
+    "php": "^7.0"
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Gray Wolf",
+      "email": "krcharen@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "MonkeyZPL\\": "src/"
+    }
+  }
 }
