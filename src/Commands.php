@@ -9,10 +9,10 @@
 namespace MonkeyZPL;
 
 use MonkeyZPL\BaseService\Base;
+use MonkeyZPL\Builder\Constructor;
 
-class Commands extends Base
+class Commands extends Base implements Constructor
 {
-
     /**
      * The ^XA command is used at the beginning of ZPL II code.
      * It is the opening bracket and indicates the start of a new label format.
@@ -40,54 +40,203 @@ class Commands extends Base
     protected $endField = '^FS';
 
 
-    public function start()
+    /**
+     * @return $this|mixed
+     */
+    public function setStart()
     {
+        $this->zpl = $this->start;
 
+        return $this;
     }
 
     /**
-     * The ^CI command enables you to call up the international character set you want to use for printing.
-     * You can mix character sets on a label.
-     * a    Desired character set    - 0 = Single Byte Encoding - U.S.A. 1 Character Set
-     * - 1 = Single Byte Encoding - U.S.A. 2 Character Set
-     * - 2 = Single Byte Encoding - U.K. Character Set
-     * - 3 = Single Byte Encoding - Holland Character Set
-     * - 4 = Single Byte Encoding - Denmark/Norway Character Set
-     * - 5 = Single Byte Encoding - Sweden/Finland Character Set
-     * - 6 = Single Byte Encoding - Germany Character Set
-     * - 7 = Single Byte Encoding - France 1 Character Set
-     * - 8 = Single Byte Encoding - France 2 Character Set
-     * - 9 = Single Byte Encoding - Italy Character Set
-     * - 10 = Single Byte Encoding - Spain Character Set
-     * - 11 = Single Byte Encoding - Miscellaneous Character Set
-     * - 12 = Single Byte Encoding - Japan (ASCII with Yen symbol) Character Set
-     * - 13 = Zebra Code Page 850
-     * - 14 = Double Byte Asian Encodings
-     * - 15 = Shift-JIS
-     * - 16 = EUC-JP and EUC-CN
-     * - 17 = Deprecated - UCS-2 Big Endian
-     * - 18 = Reserved
-     * - 19 = Reserved
-     * - 20 = Reserved
-     * - 21 = Reserved
-     * - 22 = Reserved
-     * - 23 = Reserved
-     * - 24 = Single Byte Asian Encodings
-     * - 25 = Reserved
-     * - 26 = Multibyte Asian Encodings with ASCII Transparency
-     * - 27 = Zebra Code Page 1252
-     * - 28 = Unicode (UTF-8 encoding) - Unicode Character Set
-     * - 29 = Unicode (UTF-16 Big-Endian encoding) - Unicode Character Set
-     * - 30 = Unicode (UTF-16 Little-Endian encoding) - Unicode Character Set
-     * - 31 = Zebra Code Page 1250
-     * - 33 = Code Page 1251
-     * - 34 = Code Page 1253
-     * - 35 = Code Page 1254
-     * - 36 = Code Page 1255
      * @param int $value
+     * @return $this|mixed
      */
-    public function setCI($value = 28)
+    public function addCI(int $value = 28)
     {
+        $this->zpl .= '^CI' . $value;
 
+        return $this;
+    }
+
+    /**
+     * ~DGd:o.x,t,w,data
+     * @param string $d
+     * @param string $o
+     * @param string $x
+     * @param int $t
+     * @param int $w
+     * @param string $data
+     * @return $this|mixed
+     */
+    public function addDG(string $d = 'R', string $o = 'SAMPLE', string $x = 'GRF', string $t = '00000', string $w = '000', string $data = '')
+    {
+        if ($x === 'GRF' || empty($x)) $x = 'GRF';
+
+        $DGStr = '~DG' . $d . ':' . $o . '.' . $x . ',' . $t . ',' . $w . ',' . $data;
+
+        if ($d === 'R' || empty($d)) {
+            $DGStr = str_replace(':' . $o, $o, $DGStr);
+        }
+
+        $this->zpl .= $DGStr;
+
+        return $this;
+    }
+
+    /**
+     * @param int $x
+     * @param int $y
+     * @param int $z
+     * @return $this|mixed
+     */
+    public function addFT(int $x = 0, int $y = 0, int $z = 0)
+    {
+        if (empty($z)) $z = '';
+
+        $FTStr = '^FT' . $x . ',' . $y . ',' . $z;
+        $FTStr = rtrim($FTStr, ',');
+
+        $this->zpl .= $FTStr;
+
+        return $this;
+    }
+
+    /**
+     * ^XG R:SAMPLE.GRF,1,1
+     * @param string $d
+     * @param string $o
+     * @param string $x
+     * @param string $mx
+     * @param string $my
+     * @return $this|mixed
+     */
+    public function addXG(string $d = 'R', string $o = 'SAMPLE', string $x = 'GRF', int $mx = 1, int $my = 1)
+    {
+        if ($x === 'GRF' || empty($x)) $x = 'GRF';
+
+        $XGStr = '^XG' . $d . ':' . $o . '.' . $x . ',' . $mx . ',' . $my;
+
+        if ($d === 'R' || empty($d)) {
+            $XGStr = str_replace(':', '', $XGStr);
+        }
+
+        $this->zpl .= $XGStr;
+
+        return $this;
+    }
+
+    /**
+     * @param int $w
+     * @param int $h
+     * @param int $t
+     * @param string $c
+     * @param int $r
+     * @return $this|mixed
+     */
+    public function addGB(int $w = 1, int $h = 1, int $t = 1, string $c = 'B', int $r = 0)
+    {
+        $this->zpl .= '^GB' . $w . ',' . $h . ',' . $t . ',' . $c . ',' . $r;
+
+        return $this;
+    }
+
+    /**
+     * ^BCN,100,Y,N,N
+     * @param string $o
+     * @param int $h
+     * @param string $f
+     * @param string $g
+     * @param string $e
+     * @param string $m
+     * @return $this|mixed
+     */
+    public function addBC(string $o = 'N', $h = 1, $f = 'Y', $g = 'N', $e = 'N', $m = 'N')
+    {
+        $this->zpl .= '^BC' . $o . ',' . $h . ',' . $f . ',' . $g . ',' . $e . ',' . $m;
+
+        return $this;
+    }
+
+    /**
+     * ^BYw,r,h
+     * @param int $w
+     * @param string $r
+     * @param int $h
+     * @return $this|mixed
+     */
+    public function addBY(int $w = 1, string $r = '3.0', int $h = 1)
+    {
+        $this->zpl .= '^BY' . $w . ',' . $r . ',' . $h;
+
+        return $this;
+    }
+
+    /**
+     * ^Afo,h,w
+     * @param string $f
+     * @param string $o
+     * @param int $h
+     * @param int $w
+     * @return $this|mixed
+     */
+    public function addA(string $f = '', string $o = 'N', int $h = 10, int $w = 10)
+    {
+        $this->zpl .= '^A' . $f . $o . ',' . $h . ',' . $w;
+
+        return $this;
+    }
+
+    /**
+     * ^FDa
+     * Any data string up to 3072 bytes.
+     * @param string $a
+     * @return $this|mixed
+     */
+    public function addFD(string $a = '')
+    {
+        $this->zpl .= '^FD' . $a;
+
+        return $this;
+    }
+
+    /**
+     * ^FOx,y,z
+     * @param int $x
+     * @param int $y
+     * @param int $z
+     * @return $this|mixed
+     */
+    public function addFO($x = 0, $y = 0, $z = 0)
+    {
+        if (empty($z)) $z = '';
+
+        $FOStr = '^FO' . $x . ',' . $y . ',' . $z;
+        $FOStr = rtrim($FOStr, ',');
+
+        $this->zpl .= $FOStr;
+
+        return $this;
+    }
+
+    /**
+     * @return $this|mixed
+     */
+    public function addFS()
+    {
+        $this->zpl .= '^FS';
+        return $this;
+    }
+
+    /**
+     * @return $this|mixed
+     */
+    public function setEnd()
+    {
+        $this->zpl .= $this->end;
+
+        return $this;
     }
 }
