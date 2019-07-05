@@ -1,4 +1,4 @@
 .idea
 .git
 composer.lock
-*.bak
+composer.json.bak
