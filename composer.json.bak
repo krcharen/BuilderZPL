@@ -1,0 +1,31 @@
+{
+  "name": "graywolf/builderzpl",
+  "description": "BuilderZPL",
+  "type": "library",
+  "keywords": ["laravel", "ZPL", "zebra"],
+  "homepage": "https://github.com/Big-Big-Monkey/BuilderZPL",
+  "require": {
+    "php": ">=7.0.0",
+    "monolog/monolog": "1.0.*",
+    "guzzlehttp/guzzle": "^6.3",
+    "symfony/var-dumper": "^4.3"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~6.0 || ~8.0"
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Gray Wolf",
+      "email": "krcharen@gmail.com"
+    }
+  ],
+  "autoload": {
+    "files": [
+      "src/helper.php"
+    ],
+    "psr-4": {
+      "MonkeyZPL\\": "src/"
+    }
+  }
+}

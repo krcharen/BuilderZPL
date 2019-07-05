@@ -1,12 +1,11 @@
 {
   "name": "graywolf/builderzpl",
-  "description": "通过PHP生成ZPL",
-  "type": "lib",
+  "description": "BuilderZPL",
+  "type": "library",
+  "keywords": ["laravel", "ZPL", "zebra"],
+  "homepage": "https://github.com/Big-Big-Monkey/BuilderZPL",
   "require": {
-    "php": "^7.0",
-    "monolog/monolog": "1.0.*",
-    "guzzlehttp/guzzle": "^6.3",
-    "symfony/var-dumper": "^4.3"
+    "php": "^7.0"
   },
   "require-dev": {
     "phpunit/phpunit": "^7.0"
