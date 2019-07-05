@@ -1,15 +1,16 @@
 ## Create ZPL Commands
-#####Requirements
+##### Requirements
  - PHP >= 7.0.0
  
-#####Installation
+##### Installation
 ```
 composer require graywolf/builderzpl
 ```
 
-#####Other
+##### Other
+
  - None
 
-#####License
+##### License
 
  - `builderzpl` is licensed under [The MIT License (MIT)](LICENSE).
