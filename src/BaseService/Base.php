@@ -11,7 +11,7 @@ namespace MonkeyZPL\BaseService;
 class Base
 {
     /**
-     * @var string
+     * @var array
      */
-    public $zpl = '';
+    public $zpl;
 }

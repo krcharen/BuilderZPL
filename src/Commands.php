@@ -45,7 +45,7 @@ class Commands extends Base implements Constructor
      */
     public function setStart()
     {
-        $this->zpl = $this->start;
+        $this->zpl[] = $this->start;
 
         return $this;
     }
@@ -56,7 +56,7 @@ class Commands extends Base implements Constructor
      */
     public function addCI(int $value = 28)
     {
-        $this->zpl .= '^CI' . $value;
+        $this->zpl[] = '^CI' . $value;
 
         return $this;
     }
@@ -81,7 +81,7 @@ class Commands extends Base implements Constructor
             $DGStr = str_replace(':' . $o, $o, $DGStr);
         }
 
-        $this->zpl .= $DGStr;
+        $this->zpl[] = $DGStr;
 
         return $this;
     }
@@ -99,7 +99,7 @@ class Commands extends Base implements Constructor
         $FTStr = '^FT' . $x . ',' . $y . ',' . $z;
         $FTStr = rtrim($FTStr, ',');
 
-        $this->zpl .= $FTStr;
+        $this->zpl[] = $FTStr;
 
         return $this;
     }
@@ -123,7 +123,7 @@ class Commands extends Base implements Constructor
             $XGStr = str_replace(':', '', $XGStr);
         }
 
-        $this->zpl .= $XGStr;
+        $this->zpl[] = $XGStr;
 
         return $this;
     }
@@ -138,7 +138,7 @@ class Commands extends Base implements Constructor
      */
     public function addGB(int $w = 1, int $h = 1, int $t = 1, string $c = 'B', int $r = 0)
     {
-        $this->zpl .= '^GB' . $w . ',' . $h . ',' . $t . ',' . $c . ',' . $r;
+        $this->zpl[] = '^GB' . $w . ',' . $h . ',' . $t . ',' . $c . ',' . $r;
 
         return $this;
     }
@@ -155,7 +155,7 @@ class Commands extends Base implements Constructor
      */
     public function addBC(string $o = 'N', $h = 1, $f = 'Y', $g = 'N', $e = 'N', $m = 'N')
     {
-        $this->zpl .= '^BC' . $o . ',' . $h . ',' . $f . ',' . $g . ',' . $e . ',' . $m;
+        $this->zpl[] = '^BC' . $o . ',' . $h . ',' . $f . ',' . $g . ',' . $e . ',' . $m;
 
         return $this;
     }
@@ -169,7 +169,7 @@ class Commands extends Base implements Constructor
      */
     public function addBY(int $w = 1, string $r = '3.0', int $h = 1)
     {
-        $this->zpl .= '^BY' . $w . ',' . $r . ',' . $h;
+        $this->zpl[] = '^BY' . $w . ',' . $r . ',' . $h;
 
         return $this;
     }
@@ -184,7 +184,7 @@ class Commands extends Base implements Constructor
      */
     public function addA(string $f = '', string $o = 'N', int $h = 10, int $w = 10)
     {
-        $this->zpl .= '^A' . $f . $o . ',' . $h . ',' . $w;
+        $this->zpl[] = '^A' . $f . $o . ',' . $h . ',' . $w;
 
         return $this;
     }
@@ -197,7 +197,7 @@ class Commands extends Base implements Constructor
      */
     public function addFD(string $a = '')
     {
-        $this->zpl .= '^FD' . $a;
+        $this->zpl[] = '^FD' . $a;
 
         return $this;
     }
@@ -216,7 +216,7 @@ class Commands extends Base implements Constructor
         $FOStr = '^FO' . $x . ',' . $y . ',' . $z;
         $FOStr = rtrim($FOStr, ',');
 
-        $this->zpl .= $FOStr;
+        $this->zpl[] = $FOStr;
 
         return $this;
     }
@@ -226,7 +226,7 @@ class Commands extends Base implements Constructor
      */
     public function addFS()
     {
-        $this->zpl .= '^FS';
+        $this->zpl[] = '^FS';
         return $this;
     }
 
@@ -235,7 +235,7 @@ class Commands extends Base implements Constructor
      */
     public function setEnd()
     {
-        $this->zpl .= $this->end;
+        $this->zpl[] = $this->end;
 
         return $this;
     }
