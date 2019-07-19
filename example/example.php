@@ -130,7 +130,7 @@ class test
             ->addA(0, 'N', 25, 25)
             ->addFO(240, 1195)->addFD('340639660001136761877310')->addFS()
             ->setEnd();
-        dd(implode('', $a->zpl));
+        dd($zpl->ZPL($a->zpl));
     }
 }
 
