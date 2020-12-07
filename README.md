@@ -3,9 +3,7 @@
  - PHP >= 7.0.0
  
 ##### Installation
-```
-composer require graywolf/builderzpl
-```
+
 
 ##### Other
 
